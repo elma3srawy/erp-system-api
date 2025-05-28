@@ -156,8 +156,8 @@ return [
 
             // app/Http/
             'controller' => ['path' => 'app/Http/Controllers', 'generate' => true],
-            'filter' => ['path' => 'app/Http/Middleware', 'generate' => false],
-            'request' => ['path' => 'app/Http/Requests', 'generate' => false],
+            'filter' => ['path' => 'app/Http/Middleware', 'generate' => true],
+            'request' => ['path' => 'app/Http/Requests', 'generate' => true],
 
             // config/
             'config' => ['path' => 'config', 'generate' => true],
@@ -255,10 +255,10 @@ return [
     |
     */
     'composer' => [
-        'vendor' => env('MODULE_VENDOR', 'nwidart'),
+        'vendor' => env('MODULE_VENDOR', 'elma3srawy'),
         'author' => [
-            'name' => env('MODULE_AUTHOR_NAME', 'Nicolas Widart'),
-            'email' => env('MODULE_AUTHOR_EMAIL', 'n.widart@gmail.com'),
+            'name' => env('MODULE_AUTHOR_NAME', 'Islam Elmaasrawy'),
+            'email' => env('MODULE_AUTHOR_EMAIL', 'elmaasrawy.dev@gmail.com'),
         ],
         'composer-output' => false,
     ],
