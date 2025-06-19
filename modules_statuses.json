@@ -1,0 +1,11 @@
+{
+    "Core": true,
+    "HR": true,
+    "Finance": true,
+    "Inventory": true,
+    "Sales": true,
+    "Support": true,
+    "Projects": true,
+    "Reports": true,
+    "CRM": true
+}

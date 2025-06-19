@@ -1,0 +1,30 @@
+{
+    "name": "elma3srawy/finance",
+    "description": "",
+    "authors": [
+        {
+            "name": "Islam Elmaasrawy",
+            "email": "elmaasrawy.dev@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Finance\\": "app/",
+            "Modules\\Finance\\Database\\Factories\\": "database/factories/",
+            "Modules\\Finance\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Finance\\Tests\\": "tests/"
+        }
+    }
+}

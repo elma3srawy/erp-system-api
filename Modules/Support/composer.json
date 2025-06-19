@@ -1,0 +1,30 @@
+{
+    "name": "elma3srawy/support",
+    "description": "",
+    "authors": [
+        {
+            "name": "Islam Elmaasrawy",
+            "email": "elmaasrawy.dev@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Support\\": "app/",
+            "Modules\\Support\\Database\\Factories\\": "database/factories/",
+            "Modules\\Support\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Support\\Tests\\": "tests/"
+        }
+    }
+}
