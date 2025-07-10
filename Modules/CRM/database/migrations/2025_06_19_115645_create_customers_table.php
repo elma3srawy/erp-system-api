@@ -1,4 +1,4 @@
-clera<?php
+<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->constrained('customers')->cascadeOnDelete();
-            $table->string('lead_source', 100)->nullable();
-            $table->enum('status', ['new', 'contacted', 'qualified', 'lost']);
-            $table->text('notes')->nullable();
+            $table->string('name', 100);
+            $table->string('email', 100)->unique();
+            $table->string('password');
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('phone', 20)->nullable();
+            $table->text('address')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('leads');
     }
 };

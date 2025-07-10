@@ -25,7 +25,7 @@ class SupportServiceProvider extends ServiceProvider
         $this->registerCommandSchedules();
         $this->registerTranslations();
         $this->registerConfig();
-        $this->registerViews();
+        // $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
     }
 

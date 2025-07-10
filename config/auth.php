@@ -1,5 +1,6 @@
 <?php
 
+
 return [
 
     /*
@@ -14,7 +15,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => env('AUTH_GUARD', 'web'),
+        'guard' => env('AUTH_GUARD', 'user'),
         'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
     ],
 
@@ -36,7 +37,31 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'user_token' => [
+            'driver' => 'token',
+            'provider' => 'users',
+        ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        'admin_token' => [
+            'driver' => 'sanctum',
+            'provider' => 'admins',
+        ],
+        'employee' => [
+            'driver' => 'session',
+            'provider' => 'employees',
+        ],
+        'customer' => [
+            'driver' => 'session',
+            'provider' => 'customers',
+        ],
+        'support' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
@@ -62,9 +87,20 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => env('AUTH_MODEL',  Modules\Core\Models\User::class),
         ],
-
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', Modules\Core\Models\Admin::class),
+        ],
+        'employees' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', Modules\HR\Models\Employee::class),
+        ],
+        'customers' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', Modules\CRM\Models\Customer::class),
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

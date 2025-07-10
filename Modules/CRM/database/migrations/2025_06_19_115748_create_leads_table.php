@@ -1,4 +1,4 @@
-<?php
+clera<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('leads', function (Blueprint $table) {
             $table->id();
-            $table->decimal('amount', 10, 2);
-            $table->enum('payment_method', ['cash', 'credit_card', 'bank_transfer']);
-            $table->foreignId('invoice_id')->constrained('invoices')->cascadeOnDelete();
-            $table->timestamp('payment_date')->useCurrent();
+            $table->foreignId('customer_id')->constrained('customers')->cascadeOnDelete();
+            $table->string('lead_source', 100)->nullable();
+            $table->enum('status', ['new', 'contacted', 'qualified', 'lost']);
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('customers');
     }
 };

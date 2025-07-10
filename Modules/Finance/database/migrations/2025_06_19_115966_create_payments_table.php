@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('leads', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->string('customer_name', 100);
-            $table->string('email', 100)->unique();
-            $table->string('phone', 20)->nullable();
-            $table->text('address')->nullable();
+            $table->foreignId('invoice_id')->constrained('invoices')->cascadeOnDelete();
+            $table->decimal('amount', 10, 2);
+            $table->enum('payment_method', ['cash', 'credit_card', 'bank_transfer']);
+            $table->timestamp('payment_date')->useCurrent();
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('leads');
+        Schema::dropIfExists('payments');
     }
 };

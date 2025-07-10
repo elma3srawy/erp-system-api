@@ -2,11 +2,20 @@
 
 namespace Modules\Core\Providers;
 
+use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Nwidart\Modules\Traits\PathNamespace;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
+use Modules\Core\Repositories\UserAuthRepository;
+use Modules\Core\Repositories\AdminAuthRepository;
+use Modules\Core\Interfaces\UserAuthRepositoryInterface;
+use Modules\Core\Interfaces\AdminAuthRepositoryInterface;
+use Modules\Core\Services\Authentication\UserAuthService;
+use Modules\Core\Services\Authentication\AdminAuthService;
+use Modules\Core\Interfaces\AuthenticationServiceInterface;
+use Modules\Core\Http\Controllers\V1\Authentication\UserAuthenticationController;
+use Modules\Core\Http\Controllers\V1\Authentication\AdminAuthenticationController;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -25,7 +34,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->registerCommandSchedules();
         $this->registerTranslations();
         $this->registerConfig();
-        $this->registerViews();
+        // $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
     }
 
@@ -36,6 +45,18 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
+
+        $this->app->when(AdminAuthenticationController::class)
+        ->needs(AuthenticationServiceInterface::class)
+        ->give(AdminAuthService::class);
+
+         $this->app->when(UserAuthenticationController::class)
+        ->needs(AuthenticationServiceInterface::class)
+        ->give(UserAuthService::class);
+
+        $this->app->bind(AdminAuthRepositoryInterface::class , AdminAuthRepository::class);
+        $this->app->bind(UserAuthRepositoryInterface::class , UserAuthRepository::class);
+
     }
 
     /**
