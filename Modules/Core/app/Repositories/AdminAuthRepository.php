@@ -2,7 +2,6 @@
 
 namespace Modules\Core\Repositories;
 
-use Illuminate\Database\Eloquent\Builder;
 use Modules\Core\Interfaces\AdminAuthRepositoryInterface;
 use Modules\Core\Models\Admin;
 use Illuminate\Database\Eloquent\Model;
@@ -10,11 +9,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class AdminAuthRepository implements AdminAuthRepositoryInterface
 {
-     protected static Builder $model;
+     protected static Model $model;
 
     public function __construct(){
-        // self::$model =  new Admin();
-         self::$model = Admin::newQuery();
+        self::$model =  new Admin();
     }
 
     public function createNewAdmin(array $data): Authenticatable

@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Modules\Core\Notifications\V1\UserVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Modules\Core\Database\Factories\UserFactory;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -50,5 +51,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendEmailVerificationNotification()
     {
         $this->notify(new UserVerifyEmail);
+    }
+
+    protected static function newFactory()
+    {
+        return UserFactory::new();
     }
 }

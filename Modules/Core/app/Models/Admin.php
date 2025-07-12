@@ -2,18 +2,18 @@
 
 namespace Modules\Core\Models;
 
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Modules\Core\Database\Factories\AdminFactory;
 use Modules\Core\Notifications\V1\AdminVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Sanctum\HasApiTokens;
 
 // use Modules\Core\Database\Factories\AdminFactory;
 
 class Admin extends Authenticatable implements MustVerifyEmail
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasApiTokens;
     protected $table = 'admins';
     /**
@@ -54,5 +54,8 @@ class Admin extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new AdminVerifyEmail);
     }
-
+    protected static function newFactory()
+    {
+        return AdminFactory::new();
+    }
 }

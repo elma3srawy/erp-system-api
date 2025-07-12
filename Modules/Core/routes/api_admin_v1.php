@@ -1,8 +1,6 @@
 <?php
 
-use Modules\Core\Models\Admin;
 use Illuminate\Support\Facades\Route;
-use Modules\Core\Services\Authentication\AdminAuthToken;
 use Modules\Core\Http\Controllers\V1\Authentication\AdminAuthTokenController;
 use Modules\Core\Http\Controllers\V1\Authentication\AdminVerificationController;
 use Modules\Core\Http\Controllers\V1\Authentication\AdminAuthenticationController;
@@ -13,7 +11,6 @@ Route::controller(AdminAuthenticationController::class)->group(function(){
     Route::post('sign-up' , 'register')->name('register');
 });
 Route::controller(AdminAuthTokenController::class)->group(function(){
-    Route::post('/create-token', 'create');
     Route::post('/delete-token', 'delete');
 });
 
@@ -26,22 +23,19 @@ Route::middleware(['auth:admin,admin_token'])->group(function(){
 
         Route::get('/email/verify/{id}/{hash}', 'verifyEmail')
         ->middleware('signed')->name('verification.verify');
+    });
 
+    Route::controller(AdminAuthenticationController::class)->group(function(){
+        Route::post('logout' , 'logout')->name('logout');
+        Route::get('auth-admin' , 'me')->name('me');
+    });
 
-
-Route::get('/get',function(){
-    return Admin::get();
-});
-
-
+    Route::controller(AdminAuthTokenController::class)->group(function(){
+        Route::post('/delete-token', 'delete');
     });
 
     Route::middleware(['verified'])->group(function(){
 
-        Route::controller(AdminAuthenticationController::class)->group(function(){
-            Route::post('logout' , 'logout')->name('logout');
-            Route::get('auth-admin' , 'me')->name('me');
-        });
-
     });
+
 });

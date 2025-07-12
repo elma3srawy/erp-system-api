@@ -1,8 +1,10 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -19,5 +21,13 @@ return Application::configure(basePath: dirname(__DIR__))
         ['prefix' => 'api', 'middleware' => ['api', 'auth:sanctum']],
     )
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+            $exceptions->render(function (HttpException $e, Request $request) {
+                if (
+                        $request->expectsJson() &&
+                        $e->getStatusCode() === 403 &&
+                        $e->getMessage() === 'Your email address is not verified.'
+                    ){
+                        return response()->json('Your email address is not verified.', status: 403);
+                    }
+            });
     })->create();

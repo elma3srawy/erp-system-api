@@ -21,12 +21,13 @@ Route::middleware(['auth:user'])->group(function(){
 
     });
 
+    Route::controller(UserAuthenticationController::class)->group(function(){
+        Route::post('logout' , 'logout')->name('logout');
+        Route::get('auth-user' , 'me')->name('me');
+    });
+    
     Route::middleware(['verified'])->group(function(){
 
-        Route::controller(UserAuthenticationController::class)->group(function(){
-            Route::post('logout' , 'logout')->name('logout');
-            Route::get('auth-user' , 'me')->name('me');
-        });
 
     });
 });
