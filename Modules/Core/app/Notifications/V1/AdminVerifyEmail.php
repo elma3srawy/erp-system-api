@@ -2,6 +2,8 @@
 
 namespace Modules\Core\Notifications\V1;
 
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Lang;
@@ -9,8 +11,9 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class AdminVerifyEmail extends Notification
+class AdminVerifyEmail extends Notification implements ShouldQueue
 {
+    use Queueable;
     /**
      * The callback that should be used to create the verify email URL.
      *

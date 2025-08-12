@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+define('PAGINATION' , 20);
 class AppServiceProvider extends ServiceProvider
 {
     /**

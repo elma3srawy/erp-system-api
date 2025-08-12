@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Core\Http\Controllers\DepartmentController;
 use Modules\Core\Http\Controllers\V1\Authentication\AdminAuthTokenController;
 use Modules\Core\Http\Controllers\V1\Authentication\AdminVerificationController;
 use Modules\Core\Http\Controllers\V1\Authentication\AdminAuthenticationController;
@@ -11,7 +12,7 @@ Route::controller(AdminAuthenticationController::class)->group(function(){
     Route::post('sign-up' , 'register')->name('register');
 });
 Route::controller(AdminAuthTokenController::class)->group(function(){
-    Route::post('/delete-token', 'delete');
+    Route::post('/create-token', 'create');
 });
 
 Route::middleware(['auth:admin,admin_token'])->group(function(){
@@ -35,7 +36,13 @@ Route::middleware(['auth:admin,admin_token'])->group(function(){
     });
 
     Route::middleware(['verified'])->group(function(){
-
-    });
+        Route::controller(DepartmentController::class)->prefix('department')->group(function()
+        {  
+            Route::get('/all' , 'index')->name('index');
+            Route::post('/store' , 'store')->name('store');
+            Route::put('update/{id}' , 'update')->name('update');
+            Route::delete('delete/{id}' , 'destroy')->name('destroy');      
+        }); 
+    }); 
 
 });

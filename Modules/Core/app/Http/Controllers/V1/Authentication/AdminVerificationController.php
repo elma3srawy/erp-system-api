@@ -12,12 +12,12 @@ class AdminVerificationController extends Controller
     use ResponseTrait;
     public function sendVerificationEmail(Request $request)
     {
-        $request->user('admin')->sendEmailVerificationNotification();
+        $request->user()->sendEmailVerificationNotification();
         return $this->success(message:'Verification link sent!');
     }
     public function verifyEmail(EmailVerificationRequest $request)
     {
-        if($request->user('admin')->hasVerifiedEmail())
+        if($request->user()->hasVerifiedEmail())
         {
             return $this->error('Email is already verified.');
         }
