@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\CRM\Http\Controllers\CRMController;
+use Modules\CRM\Http\Controllers\V1\CustomerController;
 
-// Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-//     Route::apiResource('crms', CRMController::class)->names('crm');
-// });
+Route::middleware(['auth:admin,admin_token'])->group(function () {
+    Route::apiResource('customers', CustomerController::class);
+});

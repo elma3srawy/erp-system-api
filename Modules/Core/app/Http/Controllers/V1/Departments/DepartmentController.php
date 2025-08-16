@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Core\Http\Controllers;
+namespace Modules\Core\Http\Controllers\V1\Departments;
 
 use App\Http\Controllers\Controller;
 use App\Traits\ResponseTrait;

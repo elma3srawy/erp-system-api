@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Core\Http\Controllers\DepartmentController;
+use Modules\Core\Http\Controllers\V1\Departments\DepartmentController;
 use Modules\Core\Http\Controllers\V1\Authentication\AdminAuthTokenController;
 use Modules\Core\Http\Controllers\V1\Authentication\AdminVerificationController;
 use Modules\Core\Http\Controllers\V1\Authentication\AdminAuthenticationController;

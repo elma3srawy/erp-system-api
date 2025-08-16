@@ -5,6 +5,8 @@ namespace Modules\CRM\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\CRM\Database\Factories\CustomerFactory;
+use Illuminate\Support\Facades\Cache;
 
 class Customer extends Authenticatable
 {
@@ -20,6 +22,8 @@ class Customer extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'address',
     ];
 
     /**
@@ -43,5 +47,18 @@ class Customer extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    protected static function newFactory()
+    {
+        return CustomerFactory::new();
+    }
+
+
+    protected static function booted()
+    {
+        foreach (['created', 'updated', 'deleted'] as $event) {
+            static::$event(fn () => Cache::tags('customer')->flush());
+        }
     }
 }
