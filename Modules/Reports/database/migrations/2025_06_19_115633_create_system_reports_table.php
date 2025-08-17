@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('system_reports', function (Blueprint $table) {
             $table->id();
-            $table->string('Report_name', 100);
+            $table->string('name', 100);
             $table->timestamps();
         });
     }

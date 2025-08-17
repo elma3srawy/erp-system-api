@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('supplier_id')->constrained('suppliers')->cascadeOnDelete();
-            $table->foreignId('category_id')->constrained('product_categories')->cascadeOnDelete();
-            $table->string('product_name', 100);
-            $table->string('SKU', 50)->unique();
+            $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
+            $table->string('name', 100);
+            $table->string('sku', 50)->unique();
             $table->integer('quantity');
             $table->decimal('price', 10, 2);
             $table->timestamps();

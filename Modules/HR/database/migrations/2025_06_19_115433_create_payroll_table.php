@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('payroll', function (Blueprint $table) {
             $table->id();
-            $table->decimal('Salary', 10, 2);
+            $table->decimal('salary', 10, 2);
             $table->date('pay_date');
             $table->foreignId('employee_id')->constrained('employees')->cascadeOnDelete();
             $table->timestamps();
