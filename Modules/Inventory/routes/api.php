@@ -1,8 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Inventory\Http\Controllers\InventoryController;
+use Modules\Inventory\Http\Controllers\API\V1\SupplierController;
 
-// Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-//     Route::apiResource('inventories', InventoryController::class)->names('inventory');
-// });
+
+
+
+
+Route::middleware(['auth:admin,admin_token' , 'verified'])->group(function () {
+    Route::apiResource('suppliers', SupplierController::class)->names('suppliers');
+});
