@@ -3,6 +3,7 @@
 namespace Modules\Inventory\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Modules\Inventory\Models\Category;
 use Modules\Inventory\Models\Supplier;
 
 class InventoryDatabaseSeeder extends Seeder
@@ -13,6 +14,7 @@ class InventoryDatabaseSeeder extends Seeder
     public function run(): void
     {
         Supplier::factory(150)->create();
+        Category::factory(150)->create();
         // $this->call([]);
     }
 }
