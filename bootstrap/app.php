@@ -32,7 +32,16 @@ return Application::configure(basePath: dirname(__DIR__))
                         $e->getStatusCode() === 403 &&
                         $e->getMessage() === 'Your email address is not verified.'
                     ){
-                        return response()->json('Your email address is not verified.', status: 403);
+                        return response()->json(['status' => true, 'message' => 'Your email address is not verified.'], status: 403);
                     }
+            });
+            $exceptions->render(function (HttpException $e, Request $request) {
+                if ($request->expectsJson()) {
+                    return match ($e->getStatusCode()) {
+                        401 => response()->json(['status' => false, 'message' => 'Unauthorized', 'data' => []], 401),
+                        403 => response()->json(['status' => false, 'message' => 'Forbidden', 'data' => []], 403),
+                        404 => response()->json(['status' => false, 'message' => 'Not Found', 'data' => []], 404),
+                    };
+                }
             });
     })->create();

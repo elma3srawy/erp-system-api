@@ -4,8 +4,9 @@ namespace Modules\Inventory\Tests\Feature\V1;
 
 use Tests\TestCase;
 use Modules\Core\Models\Admin;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Modules\Inventory\Models\Section;
 use Modules\Inventory\Models\Category;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CategoryTest extends TestCase
 {
@@ -95,5 +96,17 @@ class CategoryTest extends TestCase
         $response = $this->deleteJson(route('api.v1.inventory.categories.destroy', $category->id));
         $response->assertStatus(200);
         $this->assertDatabaseMissing('categories', ['id' => $category->id]);
+    }
+    public function test_it_can_get_categories_with_sections()
+    {
+        $category = Category::factory()->create();
+        $section = Section::factory()->create(['category_id' => $category->id]);
+        $section2 = Section::factory()->create(['category_id' => $category->id]);
+        
+        $response = $this->getJson(route('api.v1.inventory.categories.sections'));
+        $response->assertStatus(200);
+        $response->assertJsonPath('data.data.0.id', $category->id);
+        $response->assertJsonPath('data.data.0.sections.0.id', $section->id);
+        $response->assertJsonPath('data.data.0.sections.1.id', $section2->id);
     }
 }

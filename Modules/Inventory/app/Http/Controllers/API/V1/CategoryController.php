@@ -2,6 +2,7 @@
 
 namespace Modules\Inventory\Http\Controllers\API\V1;
 
+
 use App\Traits\ResponseTrait;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
@@ -10,11 +11,12 @@ use Modules\Inventory\Models\Category;
 use Symfony\Component\HttpFoundation\Response;
 use Modules\Inventory\Http\Requests\V1\CategoryRequest;
 use Modules\Inventory\Http\Resources\V1\CategoryResource;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Modules\Inventory\Traits\V1\ControllerMethods\CategoryMethods;
 
 class CategoryController extends Controller
 {
-    use ResponseTrait;
+    use ResponseTrait,
+        CategoryMethods;
     /**
      * Display a listing of the resource.
      */
