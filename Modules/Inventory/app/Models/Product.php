@@ -5,22 +5,25 @@ namespace Modules\Inventory\Models;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\Inventory\Database\Factories\SupplierFactory;
+use Modules\Inventory\Traits\V1\Relationships\Relationships\ProductRelations;
 
-class Supplier extends Model
+
+class Product extends Model
 {
     use HasFactory;
+    use ProductRelations;
 
     protected $fillable = [
-        'supplier_name',
-        'contact_name',
-        'contact_email',
-        'phone'
+        'name',
+        'section_id',
+        'sku',
+        'quantity',
+        'price',
     ];
 
     protected static function newFactory()
     {
-        return SupplierFactory::new();
+        return \Modules\Inventory\Database\Factories\ProductFactory::new();
     }
     protected static function booted()
     {

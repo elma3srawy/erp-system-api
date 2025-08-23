@@ -24,7 +24,7 @@ class Section extends Model
     protected static function booted()
     {
         foreach (['created', 'updated', 'deleted'] as $event) {
-            static::$event(fn () => Cache::tags(['sections', 'categories-with-sections'])->flush());
+            static::$event(fn () => Cache::tags(['sections', 'categories-with-sections' , 'products'])->flush());
         }
     }
 }

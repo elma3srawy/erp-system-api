@@ -6,6 +6,8 @@ use Illuminate\Database\Seeder;
 use Modules\Inventory\Models\Section;
 use Modules\Inventory\Models\Category;
 use Modules\Inventory\Models\Supplier;
+use Modules\Inventory\Models\Product;
+use Modules\Inventory\Models\ProductSuppliers;
 
 class InventoryDatabaseSeeder extends Seeder
 {
@@ -14,9 +16,11 @@ class InventoryDatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Supplier::factory(150)->create();
-        Category::factory(20)->create();
-        Section::factory(100)->create();
+        Supplier::factory(50)->create();
+        Category::factory(50)->create();
+        Section::factory(50)->create();
+        Product::factory(50)->create();
+        ProductSuppliers::factory(50)->create();
         // $this->call([]);
     }
 }

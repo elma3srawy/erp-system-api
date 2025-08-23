@@ -13,13 +13,19 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('supplier_id')->constrained('suppliers')->cascadeOnDelete();
-            $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
+            $table->foreignId('section_id')->constrained('sections')->cascadeOnDelete();
             $table->string('name', 100);
             $table->string('sku', 50)->unique();
             $table->integer('quantity');
             $table->decimal('price', 10, 2);
             $table->timestamps();
+        });
+
+        Schema::create('products_suppliers', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('supplier_id')->constrained('suppliers')->cascadeOnDelete();
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            $table->decimal('price', 10, 2)->nullable();
         });
     }
 
@@ -29,5 +35,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('products');
+        Schema::dropIfExists('products_suppliers');
     }
 };
