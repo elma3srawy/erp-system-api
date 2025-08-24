@@ -40,8 +40,8 @@ class ProductController extends Controller
     {
         try {
             DB::beginTransaction();
-            $product = Product::create($request->validated());
-            $product->suppliers()->sync([$request->validated('supplier_id') => ['price' => $request->validated('price')]]);
+            $product = Product::create($request->except('supplier_id'));
+            $product->suppliers()->attach($request->supplier_id , ['price' => $request->price]);
             $product->load('section','suppliers');
             DB::commit();
             return $this->created(

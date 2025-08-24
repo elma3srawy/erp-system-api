@@ -22,7 +22,7 @@ trait ProductMethods
             }
 
             $product->suppliers()->sync($data);
-            return $this->success('Supplier updated successfully');
+            return $this->success([],'Supplier updated successfully');
         } catch (\Throwable $th) {
             return $this->error('Error updating supplier: '.$th->getMessage());
         }
