@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('supplier_id')->constrained('suppliers')->cascadeOnDelete();
             $table->timestamp('order_date')->useCurrent();
-            $table->enum('status', ['pending', 'approved', 'received', 'cancelled']);
+            $table->enum('status', ['pending', 'approved', 'received', 'canceled'])->default('pending');
             $table->timestamps();
         });
     }

@@ -5,6 +5,7 @@ use Modules\Inventory\Http\Controllers\API\V1\SectionController;
 use Modules\Inventory\Http\Controllers\API\V1\CategoryController;
 use Modules\Inventory\Http\Controllers\API\V1\SupplierController;
 use Modules\Inventory\Http\Controllers\API\V1\ProductController;
+use Modules\Inventory\Http\Controllers\API\V1\PurchaseOrderController;
 
 Route::middleware(['auth:admin,admin_token', 'verified'])->group(function () {
     Route::apiResource('suppliers', SupplierController::class)->names('suppliers');
@@ -17,5 +18,10 @@ Route::middleware(['auth:admin,admin_token', 'verified'])->group(function () {
     Route::apiResource('products', ProductController::class)->names('products');
     Route::controller(ProductController::class)->group(function () {
         Route::put('/product/{product}/suppliers/update', 'updateSuppliers')->name('products.suppliers.update');
+    });
+
+    Route::apiResource('purchase-orders', PurchaseOrderController::class)->names('purchase-orders');
+    Route::controller(PurchaseOrderController::class)->group(function () {
+        Route::put('/purchase-orders/{purchase_order}/update-status', 'updateStatus')->name('purchase-orders.update-status');
     });
 });

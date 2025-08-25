@@ -3,6 +3,7 @@
 namespace Modules\Inventory\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Inventory\Models\Category;
 use Modules\Inventory\Models\Section;
 
 class SectionFactory extends Factory
@@ -13,7 +14,7 @@ class SectionFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->word,
-            'category_id' => $this->faker->numberBetween(1, 20)
+            'category_id' => Category::factory(),
         ];
     }
 }

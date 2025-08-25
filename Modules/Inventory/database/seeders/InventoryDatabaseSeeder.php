@@ -8,6 +8,8 @@ use Modules\Inventory\Models\Category;
 use Modules\Inventory\Models\Supplier;
 use Modules\Inventory\Models\Product;
 use Modules\Inventory\Models\ProductSuppliers;
+use Modules\Inventory\Models\PurchaseOrder;
+use Modules\Inventory\Models\PurchaseOrderDetail;
 
 class InventoryDatabaseSeeder extends Seeder
 {
@@ -16,11 +18,13 @@ class InventoryDatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Supplier::factory(50)->create();
-        Category::factory(50)->create();
-        Section::factory(50)->create();
-        Product::factory(50)->create();
-        ProductSuppliers::factory(50)->create();
+        Supplier::factory(5)->create();
+        Category::factory(5)->create();
+        Section::factory(5)->create();
+        Product::factory(5)->create();
+        ProductSuppliers::factory(5)->create();
+        PurchaseOrder::factory(5)->create();
+        PurchaseOrderDetail::factory(5)->create();
         // $this->call([]);
     }
 }

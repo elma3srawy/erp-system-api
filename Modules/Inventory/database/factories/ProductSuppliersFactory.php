@@ -3,6 +3,8 @@
 namespace Modules\Inventory\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Inventory\Models\Product;
+use Modules\Inventory\Models\Supplier;
 use Modules\Inventory\Models\ProductSuppliers;
 
 class ProductSuppliersFactory extends Factory
@@ -12,8 +14,8 @@ class ProductSuppliersFactory extends Factory
     public function definition(): array
     {
         return [
-            'product_id' => $this->faker->numberBetween(1, 50),
-            'supplier_id' => $this->faker->numberBetween(1, 50),
+            'product_id' => Product::factory(),
+            'supplier_id' => Supplier::factory(),
             "price"=> $this->faker->numberBetween(1, 1000),
         ];
     }
