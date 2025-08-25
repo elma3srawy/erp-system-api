@@ -13,7 +13,7 @@ trait PurchaseOrderMethods
     public function updateStatus(Request $request, PurchaseOrder $purchaseOrder)
     {
         $request->validate([
-            'status' => 'required|in:pending,approved,received,cancelled',
+            'status' => 'required|in:pending,approved,received,canceled',
         ]);
 
         try {
