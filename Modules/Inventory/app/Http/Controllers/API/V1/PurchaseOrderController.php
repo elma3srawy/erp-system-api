@@ -18,7 +18,7 @@ class PurchaseOrderController extends Controller
 
     public function index(): JsonResponse
     {
-        $purchaseOrders = Cache::tags('purchase_orders')->remember('purchase-orders-'.request('page'), 60*60, function () {
+        $purchaseOrders = Cache::tags('purchase-orders')->remember('purchase-orders-'.request('page'), 60*60, function () {
             return PurchaseOrder::with(['supplier', 'details.product'])->latest()->paginate(PAGINATION)->toResourceCollection(PurchaseOrderResource::class)->resource;
         });
         return $this->success($purchaseOrders , 'Purchase orders retrieved successfully.');

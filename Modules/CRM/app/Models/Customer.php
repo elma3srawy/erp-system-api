@@ -2,16 +2,19 @@
 
 namespace Modules\CRM\Models;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\CRM\Database\Factories\CustomerFactory;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Modules\CRM\Database\Factories\CustomerFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\Contracts\HasApiTokens as MustHasApiTokens;
 
-class Customer extends Authenticatable
+class Customer extends Authenticatable implements MustVerifyEmail, MustHasApiTokens
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    /** @use HasFactory<\Modules\CRM\Database\Factories\CustomerFactory> */
+    use HasFactory, Notifiable, HasApiTokens;
     protected $table = 'customers';
     /**
      * The attributes that are mass assignable.
@@ -58,7 +61,7 @@ class Customer extends Authenticatable
     protected static function booted()
     {
         foreach (['created', 'updated', 'deleted'] as $event) {
-            static::$event(fn () => Cache::tags('customer')->flush());
+            static::$event(fn () => Cache::tags(['customer' , 'orders'])->flush());
         }
     }
 }

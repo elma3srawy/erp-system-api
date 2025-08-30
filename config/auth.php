@@ -61,6 +61,10 @@ return [
             'driver' => 'session',
             'provider' => 'customers',
         ],
+        'customer_token' => [
+            'driver' => 'sanctum',
+            'provider' => 'customers',
+        ],
         'support' => [
             'driver' => 'session',
             'provider' => 'users',
@@ -87,19 +91,19 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL',  Modules\Core\Models\User::class),
+            'model' => env('AUTH_USER_MODEL',  Modules\Core\Models\User::class),
         ],
         'admins' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', Modules\Core\Models\Admin::class),
+            'model' => env('AUTH_ADMIN_MODEL', Modules\Core\Models\Admin::class),
         ],
         'employees' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', Modules\HR\Models\Employee::class),
+            'model' => env('AUTH_EMPLOYEE_MODEL', Modules\HR\Models\Employee::class),
         ],
         'customers' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', Modules\CRM\Models\Customer::class),
+            'model' => env('AUTH_CUSTOMER_MODEL', Modules\CRM\Models\Customer::class),
         ],
         // 'users' => [
         //     'driver' => 'database',

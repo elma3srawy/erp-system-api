@@ -2,11 +2,15 @@
 
 namespace Modules\Sales\Providers;
 
+use Modules\Core\Models\Admin;
+use RecursiveIteratorIterator;
+use Modules\Sales\Models\Order;
+use RecursiveDirectoryIterator;
+use Modules\CRM\Models\Customer;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Nwidart\Modules\Traits\PathNamespace;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
 
 class SalesServiceProvider extends ServiceProvider
 {
@@ -27,6 +31,20 @@ class SalesServiceProvider extends ServiceProvider
         $this->registerConfig();
         // $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
+
+
+        Gate::define('can-update-order', function(Customer $customer ,Order $order){
+            return $customer->id == $order->customer_id && $order->status === "pending";
+        });
+
+        Gate::define('can-delete-order', function(Customer|Admin $user ,Order $order){
+            if($user instanceof Admin){
+                return true;
+            }elseif ($user instanceof Customer) {
+                return $user->id == $order->customer_id && $order->status === "pending";
+            }
+            
+        });
     }
 
     /**

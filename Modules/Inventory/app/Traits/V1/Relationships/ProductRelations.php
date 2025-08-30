@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Inventory\Traits\V1\Relationships\Relationships;
+namespace Modules\Inventory\Traits\V1\Relationships;
 
 use Modules\Inventory\Models\Section;
 use Modules\Inventory\Models\Supplier;

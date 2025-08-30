@@ -5,7 +5,7 @@ namespace Modules\Inventory\Models;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\Inventory\Traits\V1\Relationships\Relationships\CategoryRelations;
+use Modules\Inventory\Traits\V1\Relationships\CategoryRelations;
 
 class Category extends Model
 {

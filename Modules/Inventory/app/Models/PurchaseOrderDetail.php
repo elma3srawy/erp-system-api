@@ -5,7 +5,7 @@ namespace Modules\Inventory\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Cache;
-use Modules\Inventory\Traits\V1\Relationships\Relationships\PurchaseOrderDetailRelations;
+use Modules\Inventory\Traits\V1\Relationships\PurchaseOrderDetailRelations;
 
 class PurchaseOrderDetail extends Model
 {
@@ -32,7 +32,7 @@ class PurchaseOrderDetail extends Model
         });
 
         foreach (['created', 'updated', 'deleted' , 'saved'] as $event) {
-            static::$event(fn() => Cache::tags(['purchase_orders'])->flush());
+            static::$event(fn() => Cache::tags(['purchase-orders'])->flush());
         }
     }
 

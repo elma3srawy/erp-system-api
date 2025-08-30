@@ -10,4 +10,5 @@ Route::middleware(['auth:admin,admin_token'])->group(function () {
 });
 Route::middleware([MustBeGuest::class])->group(function () {
     Route::post('customer/login' , [CustomerAuthController::class , 'login']);      
+    Route::post('customer/create-token' , [CustomerAuthController::class , 'createToken']);      
 });

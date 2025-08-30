@@ -11,7 +11,7 @@ class CRMDatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Customer::factory(150)->create();
+        Customer::factory(50)->create();
         // $this->call([]);
     }
 }

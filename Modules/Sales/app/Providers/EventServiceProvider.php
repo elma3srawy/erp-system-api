@@ -11,7 +11,15 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array<string, array<int, string>>
      */
-    protected $listen = [];
+    protected $listen = [
+        \Modules\Sales\Events\V1\OrderUpdated::class => [
+            \Modules\Sales\Listeners\V1\DecrementProductQuantity::class,
+        ],
+        \Modules\Sales\Events\V1\OrderCreated::class => [
+            \Modules\Sales\Listeners\V1\DecrementProductQuantity::class,
+        ],
+    ];
+    
 
     /**
      * Indicates if events should be discovered.
