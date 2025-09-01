@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Finance\Http\Controllers\FinanceController;
+use Modules\Finance\Http\Controllers\V1\InvoiceController;
 
-// Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-//     Route::apiResource('finances', FinanceController::class)->names('finance');
-// });
+Route::middleware(['auth:admin,admin_token'])->group(function () {
+    Route::apiResource('invoices', InvoiceController::class)->names('invoices');
+});

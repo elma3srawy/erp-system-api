@@ -2,12 +2,18 @@
 
 namespace Modules\Finance\Providers;
 
+use Illuminate\Http\Request;
+use RecursiveIteratorIterator;
+use Modules\Sales\Models\Order;
+use RecursiveDirectoryIterator;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Nwidart\Modules\Traits\PathNamespace;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
-
+use Modules\Finance\Services\V1\InvoiceService;
+use Modules\Finance\Interfaces\Services\V1\InvoiceInterface;
+use Modules\Finance\Models\Invoice;
+use Illuminate\Support\Facades\Route;
 class FinanceServiceProvider extends ServiceProvider
 {
     use PathNamespace;
@@ -27,6 +33,10 @@ class FinanceServiceProvider extends ServiceProvider
         $this->registerConfig();
         // $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
+
+        Route::bind('invoice', function (string $value) {
+            return Invoice::where('id', $value)->with('items')->firstOrFail();
+        });
     }
 
     /**
@@ -36,6 +46,7 @@ class FinanceServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
+        $this->app->bind(InvoiceInterface::class, InvoiceService::class);
     }
 
     /**
